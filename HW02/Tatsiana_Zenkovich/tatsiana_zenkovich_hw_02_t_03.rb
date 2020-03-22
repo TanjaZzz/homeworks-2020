@@ -1,3 +1,11 @@
+
+# calculate time between all actions with Calling core (more then 2 also)
+# taking into account that time can be on the edge of midnight
+# and forming outout like this
+#49.1 seconds between calling core with action
+#event
+#messages
+
 def task_3()
 
   lines = []
@@ -85,3 +93,5 @@ puts final_array
 
 end
 task_3()
+
+# 
