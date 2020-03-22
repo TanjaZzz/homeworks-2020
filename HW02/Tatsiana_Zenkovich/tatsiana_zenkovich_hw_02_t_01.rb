@@ -8,3 +8,4 @@ relevant_line = []
 lines.each do |line|
   relevant_line << line if line.include?('error')
 end
+puts relevant_line[0]
