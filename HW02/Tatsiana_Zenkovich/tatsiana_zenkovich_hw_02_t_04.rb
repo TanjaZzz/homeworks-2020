@@ -1,20 +1,14 @@
+# frozen_string_literal: true
 
+puts 'Please, type your string'
+input = gets.chomp
 
-   puts "Please, type your string"
-   input = gets.chomp
+numbers_count = 0
+string_count = 0
 
-   numbers_count = 0
-   string_count = 0
+input.split('').each do |x|
+  numbers_count += 1 if x =~ /\d/
+  string_count += 1 if x =~ /[a-z]|[A-Z]/
+end
 
-   input.split('').each do |x|
-    if x =~ /\d/
-      numbers_count += 1
-    end
-    if x =~ /[a-z]|[A-Z]/
-      string_count += 1
-    end
-  end
-
-    puts "letters: #{string_count}, digits: #{numbers_count}"
-
-
+puts "letters: #{string_count}, digits: #{numbers_count}"
