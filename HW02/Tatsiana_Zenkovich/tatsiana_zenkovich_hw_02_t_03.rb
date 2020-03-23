@@ -40,29 +40,16 @@ def check_the_line(relevant_line)
 end
 
 # count time for each Calling core with action
+
 def count_time(relevant_line)
-  time_between = []
-  data0 = relevant_line[0].split('-')[2][1]
+  require 'time'
   t0 = 0
-  relevant_line.each do |new_line|
-    time = new_line.split(' ')[1]
-    hour = time.split(':')[0].to_i
-    minute = time.split(':')[1].to_i
-    seconds = time.split(':')[2].to_i
-    microsec = time.split('.').last.to_i
-    seconds += microsec / 10.0
-    data1 = new_line.split('-')[2][1]
-    # check if it's time over midnight between actions
-    t1 = if data0 == data1
-           seconds + minute * 60 + hour * 60 * 60
-         else
-           seconds + minute * 60 + hour * 60 * 60 + 86_400
-         end
-    # count time between actions
-    time_difference = (t1 - t0).round(1)
-    # save names of actions in array and time between actions in another array
+  time_between = []
+  relevant_line.each do |n|
+    t1 = Time.parse(n)
+    d = t1 - t0
     t0 = t1
-    time_between << time_difference
+    time_between << d
   end
   time_between
 end
