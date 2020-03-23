@@ -1,11 +1,6 @@
-# frozen_string_literal: true
+def task1
+  lines = File.readlines('log.txt')
+  puts lines.select { |line| line.include?('error') }.first
+end
 
-lines = []
-File.open('log.txt') do |review_file|
-  lines = review_file.readlines
-end
-relevant_line = []
-lines.each do |line|
-  relevant_line << line if line.include?('error')
-end
-puts relevant_line[0]
+task1
