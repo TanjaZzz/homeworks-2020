@@ -6,11 +6,13 @@ File.open('log.txt') do |review_file|
   lines = review_file.readlines
 end
 
-relevant_line = []
-lines.each do |line|
-  if line =~ %r{(\d+\.\d+\.\d+\.\d+)\s\-\s\-\s\[(\d+/\w+/\d{4}\:\d{2}\:\d{2}\:\d{2}\s\+\d+)\]\s\W\w+(\s\W\w+\W\d+\W\w+)\s\w+/\d+\.\d+\W\s(.*)}
-    line = "\"#{Regexp.last_match(2)} FROM: #{Regexp.last_match(1)} TO: #{Regexp.last_match(3).upcase}\""
-    relevant_line << line
+re = []
+lines.each do |i|
+  ip = i[/\d+\.\d+\.\d+\.\d+/]
+  date = i[%r{\[\d+/\w+/\d{4}\:\d{2}\:\d{2}\:\d{2}\s\+\d+\]}]
+  adr = i[/T .*H/]
+  if ip && date && adr
+    re << date[1..-1] + 'FROM:' + ip[0..0] + 'TO:' + adr[1..-3].upcase
   end
 end
-puts relevant_line
+puts re
