@@ -1,6 +1,6 @@
 def task1
   lines = File.readlines('log.txt')
-  puts lines.select { |line| line.include?('error') }.first
+  lines.find { |line| line.include?('error') }
 end
 
-task1
+puts task1
