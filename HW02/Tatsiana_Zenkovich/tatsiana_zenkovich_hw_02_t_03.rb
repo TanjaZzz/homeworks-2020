@@ -1,11 +1,11 @@
-# frozen_string_literal: true
-
 # calculate time between all actions with Calling core (more then 2 also)
 # taking into account that time can be on the edge of midnight
 # and forming outout like this
 # 49.1 seconds between calling core with action
 # event
 # messages
+
+require 'time'
 
 def task3
   lines = read_file('log.txt')
@@ -19,19 +19,11 @@ def task3
 end
 
 def read_file(file_name)
-  lines = []
-  File.open(file_name) do |review_file|
-    lines = review_file.readlines
-  end
-  lines
+  File.readlines(file_name)
 end
 
 def parsing(lines)
-  relevant_line = []
-  lines.each do |line|
-    relevant_line << line if line.include?('Calling core with action')
-  end
-  relevant_line
+  lines.select { |line| line.include?('Calling core with action') }
 end
 
 # check if the log contains any Calling core with action
@@ -42,7 +34,6 @@ end
 # count time for each Calling core with action
 
 def count_time(relevant_line)
-  require 'time'
   t0 = 0
   time_between = []
   relevant_line.each do |n|
@@ -55,12 +46,7 @@ def count_time(relevant_line)
 end
 
 def names_array(relevant_line)
-  names = []
-  relevant_line.each do |new_line|
-    name = new_line.split(' ').last
-    names << name
-  end
-  names
+  relevant_line.map { |new_line| new_line.split(' ').last }
 end
 
 # check if there was only one Calling core with action
