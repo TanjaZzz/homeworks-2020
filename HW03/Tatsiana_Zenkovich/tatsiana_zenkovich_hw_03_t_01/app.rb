@@ -1,5 +1,5 @@
-require_relative 'class_student'
-require_relative 'class_mentor'
+require_relative 'student'
+require_relative 'mentor'
 
 module App
   def self.run
