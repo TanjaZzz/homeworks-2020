@@ -1,4 +1,4 @@
-class Array
+module MyArray
   def my_each
     if block_given?
       (0..length - 1).each do |i|
@@ -26,4 +26,7 @@ class Array
     end
     results
   end
+end
+class Array
+  include MyArray
 end
