@@ -1,29 +1,40 @@
 class Mentor
-  attr_reader :name, :surname
+  attr_reader :name, :surname, :students, :tasks, :notifications
   def initialize(name, surname)
     @name = name
     @surname = surname
     @notifications = []
-    @student = []
+    @students = []
+    @tasks = []
   end
 
   def subscribe_to(student)
     @notifications.clear
-    @student << student
+    @students << student
     notify_student
   end
 
+  def unsubscribe_from(student)
+    @students.delete(student)
+  end
+
   def notify_student
-    @student.each { |student| student.subscribe(self) }
+    @students.each { |student| student.subscribe(self) }
   end
 
   def read_notifications!
     @notifications = @notifications.clear
   end
 
-  attr_reader :notifications
-
   def send_update(_notifiaction)
     @notifications << 'Notification'
+  end
+
+  def prepare_task(title, task = Task)
+    @tasks << task.new(title)
+  end
+
+  def send_task_to_student(_student)
+    @students.each { |student| student.get_tasks(self) }
   end
 end
