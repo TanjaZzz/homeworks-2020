@@ -11,15 +11,10 @@ class Mentor
   def subscribe_to(student)
     @notifications.clear
     @students << student
-    notify_student
   end
 
   def unsubscribe_from(student)
     @students.delete(student)
-  end
-
-  def notify_student
-    @students.each { |student| student.subscribe(self) }
   end
 
   def read_notifications!

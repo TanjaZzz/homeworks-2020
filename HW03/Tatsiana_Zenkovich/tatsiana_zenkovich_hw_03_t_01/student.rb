@@ -9,7 +9,6 @@ class Student
   end
 
   def submit_homework!(homework_data)
-    @tasks.pop
     @homeworks << homework_data
     notify_mentor
   end
@@ -18,12 +17,12 @@ class Student
     @mentors.each { |mentor| mentor.send_update(self) }
   end
 
-  def subscribe(mentor)
+  def subscribe_to(mentor)
     @mentors << mentor
   end
 
   def get_tasks(mentor)
-    @tasks << mentor.tasks
+    @tasks = mentor.tasks
   end
 
   def unsubscribe_from(mentor)
