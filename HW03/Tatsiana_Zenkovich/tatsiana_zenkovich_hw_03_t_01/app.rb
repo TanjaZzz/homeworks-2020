@@ -1,23 +1,24 @@
 require_relative 'student'
 require_relative 'mentor'
+require_relative 'task'
 
-module App
-  def self.run
-    student = Student.new('John', 'Doe')
-    mentor = Mentor.new('Jack', 'Gonsales')
+student = Student.new('John', 'Doe')
+mentor = Mentor.new('Jack', 'Gonsales')
 
-    student.submit_homework!('homework_first')
-    student.homeworks # => [Homework, ...]
+student.subscribe(mentor)
+mentor.prepare_task('your task') # => [Task, ...]
 
-    mentor.subscribe_to(student)
-    mentor.notifications # => []
+mentor.subscribe_to(student)
+mentor.send_task_to_student(student)
 
-    student.submit_homework!('homework_second')
-    mentor.notifications # => [Notification, ...]
+student.tasks # => [Task, ...]
+student.submit_homework!('Homework')
 
-    mentor.read_notifications!
-    mentor.notifications # => []
-  end
-end
+student.homeworks # => [Homework, ...]
+mentor.notifications # => [Notification, ...]
 
-App.run
+mentor.read_notifications!
+mentor.notifications # => []
+
+mentor.unsubscribe_from(student)
+student.unsubscribe_from(mentor)
