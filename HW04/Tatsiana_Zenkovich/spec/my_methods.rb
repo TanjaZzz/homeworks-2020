@@ -4,29 +4,35 @@ module MyArray
       (0..length - 1).each do |i|
         proc.call(self[i])
       end
-    elsif (0..length - 1).each do |i|
-            self[i]
-          end
+      return self
     end
-    self
+    return to_enum(:my_each) unless block_given?
   end
 
   def my_map
     results = []
-    my_each do |item|
-      results << yield(item)
+    if block_given?
+
+      (0..length - 1).each do |i|
+        results << proc.call(self[i])
+      end
+      return results
     end
-    results
+    return to_enum(:my_map) unless block_given?
   end
 
   def my_select
-    results = []
-    my_each do |item|
-      results << item if yield(item) == true
+    if block_given?
+      results = []
+      (0..length - 1).each do |i|
+        results << self[i] if proc.call(self[i]) == true
+      end
+      return results
     end
-    results
+    return to_enum(:my_select) unless block_given?
   end
 end
+
 class Array
   include MyArray
 end
