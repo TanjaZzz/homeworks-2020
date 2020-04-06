@@ -13,7 +13,7 @@ module MyArray
 
   def my_map
     results = []
-    each do |item|
+    my_each do |item|
       results << yield(item)
     end
     results
@@ -21,7 +21,7 @@ module MyArray
 
   def my_select
     results = []
-    each do |item|
+    my_each do |item|
       results << item if yield(item) == true
     end
     results
