@@ -21,7 +21,7 @@ class Mentor
     @notifications.clear
   end
 
-  def send_update(_notifiaction)
+  def send_update(notification)
     @notifications << notification
   end
 
