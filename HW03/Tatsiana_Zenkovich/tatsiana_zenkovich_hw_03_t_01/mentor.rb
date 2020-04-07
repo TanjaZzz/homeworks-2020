@@ -1,5 +1,6 @@
 class Mentor
   attr_reader :name, :surname, :students, :tasks, :notifications
+
   def initialize(name, surname)
     @name = name
     @surname = surname
@@ -9,7 +10,6 @@ class Mentor
   end
 
   def subscribe_to(student)
-    @notifications.clear
     @students << student
   end
 
@@ -18,11 +18,11 @@ class Mentor
   end
 
   def read_notifications!
-    @notifications = @notifications.clear
+    @notifications.clear
   end
 
-  def send_update(_notifiaction)
-    @notifications << 'Notification'
+  def send_update(notifiaction)
+    @notifications << notification
   end
 
   def prepare_task(title, task = Task)

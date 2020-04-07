@@ -1,5 +1,6 @@
 class Student
   attr_reader :name, :surname, :mentors, :tasks, :homeworks
+  
   def initialize(name, surname)
     @name = name
     @surname = surname
