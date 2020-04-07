@@ -1,4 +1,3 @@
-require 'pry'
 require_relative 'student'
 require_relative 'mentor'
 require_relative 'task'
