@@ -36,52 +36,49 @@ describe '#my_each' do
 end
 # rubocop:enable Metrics/BlockLength
 describe '#my_map' do
-  subject { Array.new([1, 2, 3, 4, 5]) }
+  subject { Array.new(array).my_map { |x| x + 3 } }
+  let(:array) { [1, 2, 3, 4, 5] }
+
   context 'when a block given' do
-    it 'returns a calculated array' do
-      expect(subject.my_map { |x| x + 3 }).to eq([4, 5, 6, 7, 8])
-    end
+    it { is_expected.to eq [4, 5, 6, 7, 8] }
 
     it 'returns an array with same length' do
-      expect(subject.my_map { |x| x + 3 }.length).to eq(subject.length)
+      expect(array.my_map { |x| x + 3 }.length).to eq(array.length)
     end
 
     context 'when empty array is given' do
-      subject { Array.new([]) }
-      it 'returns an empty array' do
-        expect(subject.my_map { |x| x + 3 }).to eq([])
-      end
+      let(:array) { [] }
+      it { is_expected.to eq [] }
     end
   end
 
   context 'when no block given' do
     it 'returns the Enumerator' do
-      expect(subject.my_map).to be_an_instance_of(Enumerator)
+      expect(array.my_map).to be_an_instance_of(Enumerator)
     end
   end
 end
 
 describe '#my_select' do
-  subject { Array.new([1, 2, 3, 4, 5]) }
+  subject { Array.new(array).my_select { |x| x < 3 } }
+  let(:array) { [1, 2, 3, 4, 5] }
+
   context 'when a block is given' do
-    it 'returns a new array which satisfy the block`s condition' do
-      expect(subject.my_select { |x| x < 3 }).to eq([1, 2])
-    end
+    it { is_expected.to eq [1, 2] }
+
     it 'returns an array with at most the same length' do
-      expect(subject.my_map { |x| x < 5 }.length).to be <= subject.length
+      expect(array.my_map { |x| x < 5 }.length).to be <= array.length
     end
 
     context 'when empty array is given' do
-      subject { Array.new([]) }
-      it 'returns an empty array' do
-        expect(subject.my_select { |x| x < 5 }).to eq([])
-      end
+      let(:array) { [] }
+      it { is_expected.to eq [] }
     end
   end
 
   context 'when no block given' do
     it 'returns the Enumerator' do
-      expect(subject.my_select).to be_an_instance_of(Enumerator)
+      expect(array.my_select).to be_an_instance_of(Enumerator)
     end
   end
 end
