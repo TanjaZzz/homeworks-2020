@@ -1,13 +1,12 @@
 module MyArray
   # rubocop:disable Style/For: Prefer each over for
   def my_each
-    if block_given?
-      for i in (0..length - 1)
-        proc.call(self[i])
-      end
-      return self
-    end
     return to_enum(:my_each) unless block_given?
+
+    for i in (0..length - 1)
+      proc.call(self[i])
+    end
+    self
   end
 
   def my_map
